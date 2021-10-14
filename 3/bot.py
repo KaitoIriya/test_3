@@ -14,9 +14,10 @@ def welcome(message):
     # keyboard
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("🎲 Рандомное число")
-    item2 = types.KeyboardButton("😊 Как дела?")
+    item3 = types.KeyboardButton("Привет")
+    item2 = types.KeyboardButton("Как дела?")
  
-    markup.add(item1, item2)
+    markup.add(item1, item3, item2)
  
     bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот созданный чтобы быть подопытным кроликом.".format(message.from_user, bot.get_me()),
         parse_mode='html', reply_markup=markup)
@@ -26,7 +27,7 @@ def lalala(message):
     if message.chat.type == 'private':
         if message.text == '🎲 Рандомное число':
             bot.send_message(message.chat.id, str(random.randint(0,100)))
-        elif message.text == '😊 Как дела?':
+        elif message.text == 'Как дела?':
  
             markup = types.InlineKeyboardMarkup(row_width=2)
             item1 = types.InlineKeyboardButton("Хорошо", callback_data='good')
@@ -35,6 +36,12 @@ def lalala(message):
             markup.add(item1, item2)
  
             bot.send_message(message.chat.id, 'Отлично, сам как?', reply_markup=markup)
+        elif message.text == 'Привет':
+            bot.send_message(message.chat.id, 'Приветик')
+
+        elif message.text == 'Как себя чувствуешь?':
+            bot.send_message(message.chat.id, 'Я просто машина, я не чувствую')
+
         else:
             bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
  
@@ -48,7 +55,7 @@ def callback_inline(call):
                 bot.send_message(call.message.chat.id, 'Бывает 😢')
  
             # remove inline buttons
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="😊 Как дела?",
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Как дела?",
                 reply_markup=None)
  
             # show alert
